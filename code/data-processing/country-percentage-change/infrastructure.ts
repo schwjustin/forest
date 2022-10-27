@@ -2,7 +2,8 @@ import { Construct } from "constructs";
 import {
     aws_sqs as sqs, 
     aws_s3 as s3,
-    aws_lambda as lambda, 
+    aws_lambda as lambda,
+    aws_lambda_event_sources as event_sources, 
     aws_dynamodb as dynamodb,
     Duration
 } from 'aws-cdk-lib';
@@ -19,7 +20,9 @@ export class CountryPercentageChange extends Construct {
     constructor(scope: Construct, id: string, props: DalleGenImageProps) {
         super(scope, id);
 
-        this.dalleGenQueue = new sqs.Queue(this, 'country-percent-change');
+        this.dalleGenQueue = new sqs.Queue(this, 'country-percent-change', {
+            visibilityTimeout: Duration.seconds(100)
+        });
 
         const countryPercentageChangeLambda = new lambda.Function(this, 'country-percent-change-lambda',{
             runtime: lambda.Runtime.NODEJS_16_X,
@@ -31,8 +34,13 @@ export class CountryPercentageChange extends Construct {
                 "DALLE_QUEUE_URL": this.dalleGenQueue.queueUrl, 
                 "DYNAMODB_TABLE_NAME": props.jobTable.tableName
             }, 
-            timeout: Duration.seconds(30)
+            timeout: Duration.seconds(30), 
+            events: [
+                new event_sources.SqsEventSource(props.countryDataProcessingQueue)
+            ]
         });
+
+        props.countryDataProcessingQueue.grantConsumeMessages(countryPercentageChangeLambda);
 
         props.jobTable.grantReadWriteData(countryPercentageChangeLambda);
 

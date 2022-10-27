@@ -17,7 +17,8 @@ export class WebApi extends Construct {
         const apiGateway = new apigateway.RestApi(this, 'webApi', {
             defaultCorsPreflightOptions: {
                 allowOrigins: apigateway.Cors.ALL_ORIGINS, 
-                allowMethods: apigateway.Cors.ALL_METHODS
+                allowMethods: apigateway.Cors.ALL_METHODS,
+                allowHeaders: ['*']
             }
         });
 
@@ -26,7 +27,11 @@ export class WebApi extends Construct {
 
         const countryImageApiIntegration = new apigateway.LambdaIntegration(countryImageService.countryImageApiLambda);
 
+        const getImageApiLambdaIntegation = new apigateway.LambdaIntegration(countryImageService.getImageApiLambda);
+
         apiGateway.root.addMethod('POST', countryImageApiIntegration);
+
+        apiGateway.root.addMethod('GET', getImageApiLambdaIntegation);
 
     }
 }
