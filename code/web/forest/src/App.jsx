@@ -36,7 +36,7 @@ function App() {
       });
 
 			if (res.length > 0) {
-        const id = CallAPI.call("POST", "https://3dycapu2p0.execute-api.us-east-1.amazonaws.com/prod/");
+        const id = await CallAPI.call("POST", "https://3dycapu2p0.execute-api.us-east-1.amazonaws.com/prod/");
         console.log(id);
         
         
