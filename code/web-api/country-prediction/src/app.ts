@@ -56,9 +56,27 @@ export const getDalleImageHandler = async (event: APIGatewayEvent , context: Con
 
     const response = await getJobStatus(jobId);
 
-    console.log(response);
+    if (response?.failed?.BOOL == true) {
+        throw new Error('Something went wrong');
+    }
 
-    const messageBody = {};
+    var messageBody = {};
+    var statusCode = 200;
+
+    if (response?.isComplete?.BOOL == true) {
+        statusCode = 200;
+        messageBody = {
+            link: response?.link?.S
+        }
+    }
+
+
+    if (response?.isComplete?.BOOL == false) {
+        statusCode = 202;
+        messageBody = {
+            message: "task is still loading"
+        }
+    }
 
     const result: APIGatewayProxyResult = {
         statusCode: 200, 
