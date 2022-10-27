@@ -74,7 +74,7 @@ h2 {
 	margin-bottom: 1.25rem;
 }
 
-a {
+a, .hover {
 	text-decoration: none;
 	background: linear-gradient(currentColor, currentColor) bottom / 0 1.5px
 		no-repeat;
@@ -82,7 +82,7 @@ a {
 	background-position: left bottom;
 }
 
-a:hover {
+a:hover, .hover:hover {
 	background-size: 100% 1.5px;
 }
 

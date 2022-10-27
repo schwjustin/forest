@@ -9,17 +9,54 @@ import countries from "./data/countries.json";
 import forests from "./data/annual-change-forest-area.json";
 import { Link } from "react-router-dom";
 
-import bg from "./assets/images/test.jpg";
+import bg from "./assets/images/amazon.webp";
+// import { Dalle } from "dalle-node";
+
+// const dalle = new Dalle("sess-xxxxxxxxxxxxxxxxxxxxxxxxx"); // Bearer Token
+
+import { CallAPI } from "./utils/callAPI";
 
 function App() {
 	const [about, setAbout] = useState(false);
 	const [query, setQuery] = useState("");
-	const [choice, setChoice] = useState(3);
+	const [choice, setChoice] = useState(0);
 	const yearArr = ["30", "60", "90", "120", "150"];
-	const [bgInfo, setBgInfo] = useState("Amazon Rainforest, Brazil\n2030");
+	const [bgInfo, setBgInfo] = useState("Amazon Rainforest, Brazil\n2022");
 	const [results, setResults] = useState([]);
 	const [searchRef, search, setSearch] = useComponentVisible(false);
 	const [yearsRef, years, setYears] = useComponentVisible(false);
+
+	const call = () => {
+
+    
+		(async () => {
+
+      const res = countries.filter((country) => {
+        return country.toLowerCase() === query.toLowerCase();
+      });
+
+			if (res.length > 0) {
+        const id = CallAPI.call("POST", "https://3dycapu2p0.execute-api.us-east-1.amazonaws.com/prod/");
+        console.log(id);
+        
+        
+
+		// 		const generations = await dalle.generate(
+		// 			"aerial view of " +
+		// 				query +
+		// 				" forest " +
+		// 				yearArr[choice] +
+		// 				" years into the future with " +
+		// 				"50" +
+		// 				"% less foliage due to deforestation"
+		// 		);
+
+		// 		console.log(generations);
+			} else {
+				setQuery("");
+			}
+		})();
+	};
 
 	const filter = async (e) => {
 		const word = e.target.value;
@@ -49,7 +86,7 @@ function App() {
 					<div className="w-full relative css-center h-12">
 						<div className="absolute top-0 h-center w-1/2 flex space-x-3">
 							<div
-								className="w-full backdrop-blur-2xl rounded-3xl flex flex-wrap box-content"
+								className="w-full backdrop-blur-2xl rounded-3xl flex flex-wrap box-content hover:bg-white hover:bg-opacity-5 duration-150 ease-in-out"
 								style={{
 									border: "rgba(255,255,255,0.75) solid 0.5px",
 									height: years ? "48px" : "auto",
@@ -83,6 +120,13 @@ function App() {
 										}}
 										onBlur={() => {
 											setSearch(false);
+										}}
+										onKeyUp={(e) => {
+											if (e.key === "Enter") {
+												call();
+											} else {
+												e.target;
+											}
 										}}
 										placeholder="Search a country — look into the future"
 									/>
@@ -127,7 +171,7 @@ function App() {
 										setYears(true);
 									}
 								}}
-								className="box-content cursor-pointer backdrop-blur-2xl rounded-3xl flex flex-wrap flex-1"
+								className="box-content cursor-pointer backdrop-blur-2xl rounded-3xl flex flex-wrap flex-1 hover:bg-white hover:bg-opacity-5 duration-150 ease-in-out"
 								style={{
 									zIndex: "9999",
 									border: "rgba(255,255,255,0.75) solid 0.5px",
@@ -191,7 +235,7 @@ function App() {
 															}}
 														>
 															<p className="inline-block noselect">
-                              in {country} years
+																in {country} years
 																{/* &nbsp;</p>
 
 															<p className="noselect inline-block w-3 text-center text-white text-opacity-100">
@@ -233,7 +277,7 @@ function App() {
 							setAbout(true);
 						}}
 						// to="/about"
-						className="leading-8 fixed top-7 right-7 text-m cursor-pointer font-semibold"
+						className="hover leading-8 fixed top-7 right-7 text-m cursor-pointer font-semibold"
 					>
 						About
 					</div>
@@ -304,7 +348,7 @@ function App() {
 						onMouseDown={() => {
 							setAbout(false);
 						}}
-						className="cursor-pointer absolute right-7 w-8 h-8 top-7 placeholder-white::placeholder"
+						className="cursor-pointer absolute right-7 w-8 h-8 top-7 placeholder-white::placeholder opacity-75 hover:opacity-100 ease-in-out duration-150"
 					/>
 				</>
 			)}
