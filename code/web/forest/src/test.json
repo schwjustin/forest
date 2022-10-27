@@ -1,0 +1,82 @@
+
+
+
+
+	{
+		"link": [
+			{
+				"M": {
+					"generation": {
+						"M": {
+							"image_path": {
+								"S": "https://openailabsprodscus.blob.core.windows.net/private/user-phDeGRgwgUu223MozjGzpO3F/generations/generation-k2yyrT2q7L9AD7ZwZTypHD6o/image.webp?st=2022-10-27T12%3A12%3A50Z&se=2022-10-27T14%3A10%3A50Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/webp&skoid=15f0b47b-a152-4599-9e98-9cb4a58269f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-10-27T12%3A27%3A03Z&ske=2022-11-03T12%3A27%3A03Z&sks=b&skv=2021-08-06&sig=mftq/9G96uIM86vukTuh1IGwc4eifSvAmoCQHwRi2ZA%3D"
+							}
+						}
+					},
+					"created": { "N": "1666876308" },
+					"is_public": { "BOOL": false },
+					"task_id": { "S": "task-cnTzUjfD9fu9m4iKaL0gfveh" },
+					"id": { "S": "generation-k2yyrT2q7L9AD7ZwZTypHD6o" },
+					"prompt_id": { "S": "prompt-2zme9mSjzRAvN6qxrNcKeJDi" },
+					"object": { "S": "generation" },
+					"generation_type": { "S": "ImageGeneration" }
+				}
+			},
+			{
+				"M": {
+					"generation": {
+						"M": {
+							"image_path": {
+								"S": "https://openailabsprodscus.blob.core.windows.net/private/user-phDeGRgwgUu223MozjGzpO3F/generations/generation-r69tIHmmPD7DKd6EdAttIsvB/image.webp?st=2022-10-27T12%3A12%3A50Z&se=2022-10-27T14%3A10%3A50Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/webp&skoid=15f0b47b-a152-4599-9e98-9cb4a58269f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-10-27T12%3A27%3A03Z&ske=2022-11-03T12%3A27%3A03Z&sks=b&skv=2021-08-06&sig=HGpBbWAPd57vT4eh4w2eAZAES3mSbtMzSbwZR6K3/qo%3D"
+							}
+						}
+					},
+					"created": { "N": "1666876308" },
+					"is_public": { "BOOL": false },
+					"task_id": { "S": "task-cnTzUjfD9fu9m4iKaL0gfveh" },
+					"id": { "S": "generation-r69tIHmmPD7DKd6EdAttIsvB" },
+					"prompt_id": { "S": "prompt-2zme9mSjzRAvN6qxrNcKeJDi" },
+					"object": { "S": "generation" },
+					"generation_type": { "S": "ImageGeneration" }
+				}
+			},
+			{
+				"M": {
+					"generation": {
+						"M": {
+							"image_path": {
+								"S": "https://openailabsprodscus.blob.core.windows.net/private/user-phDeGRgwgUu223MozjGzpO3F/generations/generation-CppKIp2fFOQVeKlPj2limeBI/image.webp?st=2022-10-27T12%3A12%3A50Z&se=2022-10-27T14%3A10%3A50Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/webp&skoid=15f0b47b-a152-4599-9e98-9cb4a58269f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-10-27T12%3A27%3A03Z&ske=2022-11-03T12%3A27%3A03Z&sks=b&skv=2021-08-06&sig=NE%2BUXXwpvk31HMHtcNvb1PgxQlDG9tTVXjT3yK8tN%2B0%3D"
+							}
+						}
+					},
+					"created": { "N": "1666876308" },
+					"is_public": { "BOOL": false },
+					"task_id": { "S": "task-cnTzUjfD9fu9m4iKaL0gfveh" },
+					"id": { "S": "generation-CppKIp2fFOQVeKlPj2limeBI" },
+					"prompt_id": { "S": "prompt-2zme9mSjzRAvN6qxrNcKeJDi" },
+					"object": { "S": "generation" },
+					"generation_type": { "S": "ImageGeneration" }
+				}
+			},
+			{
+				"M": {
+					"generation": {
+						"M": {
+							"image_path": {
+								"S": "https://openailabsprodscus.blob.core.windows.net/private/user-phDeGRgwgUu223MozjGzpO3F/generations/generation-o5jsUHtn86fR7er9KTiwLGYT/image.webp?st=2022-10-27T12%3A12%3A50Z&se=2022-10-27T14%3A10%3A50Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/webp&skoid=15f0b47b-a152-4599-9e98-9cb4a58269f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2022-10-27T12%3A27%3A03Z&ske=2022-11-03T12%3A27%3A03Z&sks=b&skv=2021-08-06&sig=67fPBeOpkjeyEvXywmaH8fTLTLHXJ6J8qswHJpsAFNk%3D"
+							}
+						}
+					},
+					"created": { "N": "1666876308" },
+					"is_public": { "BOOL": false },
+					"task_id": { "S": "task-cnTzUjfD9fu9m4iKaL0gfveh" },
+					"id": { "S": "generation-o5jsUHtn86fR7er9KTiwLGYT" },
+					"prompt_id": { "S": "prompt-2zme9mSjzRAvN6qxrNcKeJDi" },
+					"object": { "S": "generation" },
+					"generation_type": { "S": "ImageGeneration" }
+				}
+			}
+		]
+	},
+	"Timeout Done"
+]

@@ -125,7 +125,7 @@ a:hover, .hover:hover {
 .loading-icon {
 	border-radius: 50%;
 	border-style: solid;
-	border-color: rgba(0,0,0,0.6);
+	border-color: rgba(0,0,0,0.5);
 	border-top-color: #ffffff;
 	display: inline-block;
 

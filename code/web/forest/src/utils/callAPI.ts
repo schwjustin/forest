@@ -16,7 +16,7 @@ export abstract class CallAPI {
 		headers.append("Content-Type", "application/json");
 
 		console.log("url: " + url);
-		console.log("body: " + body);
+		console.log("body: " + JSON.stringify(body));
 
 		return fetch(url, {
 			method: method,

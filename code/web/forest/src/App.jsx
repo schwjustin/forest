@@ -8,6 +8,8 @@ import {
 import countries from "./data/countries.json";
 import forests from "./data/annual-change-forest-area.json";
 import { Link } from "react-router-dom";
+import {isMobile} from 'react-device-detect';
+
 
 import bg from "./assets/images/amazon.webp";
 // import { Dalle } from "dalle-node";
@@ -17,6 +19,8 @@ import bg from "./assets/images/amazon.webp";
 import { CallAPI } from "./utils/callAPI";
 
 function App() {
+	const [images, setImages] = useState([]);
+	const [ID, setID] = useState("");
 	const [generated, setGenerated] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [percent, setPercent] = useState(0);
@@ -37,22 +41,73 @@ function App() {
 	// 	}, 1000);
 	// };
 
-	function callme() {
+	function callme(id) {
 		//This promise will resolve when the network call succeeds
 		//Feel free to make a REST fetch using promises and assign it to networkPromise
-		var networkPromise = fetch("https://jsonplaceholder.typicode.com/todos/1");
+		// var networkPromise = fetch(
+
+		// );
+
+		console.log("ID IS " + id);
+		const headers = new Headers();
+
+		let networkPromise = fetch(
+			"https://3dycapu2p0.execute-api.us-east-1.amazonaws.com/prod/?jobId=" +
+				id,
+			{
+				method: "GET",
+				mode: "cors",
+				headers: headers,
+			}
+		)
+			.then(async (response) => {
+				console.log("status: " + response.status);
+				return response.text();
+			})
+			.then((text) => {
+				try {
+					const data = JSON.parse(text);
+					console.log(data);
+					return data;
+				} catch (err) {
+					console.log(text);
+					return text;
+				}
+			})
+			.catch((error) => {
+				console.error("Error:", error);
+			});
 
 		//This promise will resolve when 2 seconds have passed
-		var timeOutPromise = new Promise(function (resolve, reject) {
+		let timeOutPromise = new Promise(function (resolve, reject) {
 			// 2 Second delay
-			setTimeout(resolve, 2000, "Timeout Done");
+			setTimeout(resolve, 1000, "Timeout Done");
 		});
 
 		Promise.all([networkPromise, timeOutPromise]).then(function (values) {
 			console.log("Atleast 2 secs + TTL (Network/server)");
 			console.log(values);
+			console.log(JSON.stringify(values));
+
+			if (!values[0]["link"]) {
+				callme(id);
+			} else {
+				console.log("DONE!!!!");
+				console.log(
+					values[0]["link"][0]["M"]["generation"]["M"]["image_path"]["S"]
+				);
+
+				setImages([
+					values[0]["link"][0]["M"]["generation"]["M"]["image_path"]["S"],
+					values[0]["link"][1]["M"]["generation"]["M"]["image_path"]["S"],
+					values[0]["link"][2]["M"]["generation"]["M"]["image_path"]["S"],
+					values[0]["link"][3]["M"]["generation"]["M"]["image_path"]["S"],
+				]);
+
+				setLoading(false);
+				setGenerated(true);
+			}
 			//Repeat
-			callme();
 		});
 	}
 
@@ -66,32 +121,28 @@ function App() {
 			if (res.length > 0) {
 				const id = await CallAPI.call(
 					"POST",
-					"https://3dycapu2p0.execute-api.us-east-1.amazonaws.com/prod/"
+					"https://3dycapu2p0.execute-api.us-east-1.amazonaws.com/prod/",
+					{ country: input, numOfYears: parseInt(yearArr[choice]) }
+					// { country: "United States", numOfYears: 100 }
 				);
 				console.log(JSON.stringify(id));
+				console.log("hello");
+				console.log(id.jobId);
+				setID(id.jobId);
+
 				// setGenerated(true);
 				setLoading(true);
-				callme();
+				callme(id.jobId);
+				// setInterval(() => {
+				// 	let x = percent + 10;
+				// 	setPercent(p => p+1);
+				// 	console.log(percent);
+				// }, 1000);
 
 				// let x = 0;
 				// console.log(x);
 
 				// await time(x);
-
-				// console.log("done");
-				// console.log(x);
-
-				// 		const generations = await dalle.generate(
-				// 			"aerial view of " +
-				// 				query +
-				// 				" forest " +
-				// 				yearArr[choice] +
-				// 				" years into the future with " +
-				// 				"50" +
-				// 				"% less foliage due to deforestation"
-				// 		);
-
-				// 		console.log(generations);
 			} else {
 				setQuery("");
 			}
@@ -123,7 +174,7 @@ function App() {
 		>
 			{!about && (
 				<>
-					{(!generated && !loading) && (
+					{!generated && !loading && (
 						<div className="w-full relative css-center h-12 z-10">
 							<div className="absolute top-0 h-center w-1/2 flex space-x-3">
 								<div
@@ -325,12 +376,42 @@ function App() {
 			)}
 
 			{generated && (
-				// <div className="">
-				<img
-					src={bg}
-					className="css-center h-2/3 aspect-square object-cover "
-				></img>
-				// </div>
+				// <div className=" ">
+        <>
+        <div className="w-full h-full fixed backdrop-blur-xl"></div>
+					<div className="flex css-center" style={{
+            height: "calc(33vh)",
+            width: "calc(132vh)",
+            flexWrap: isMobile ? "wrap" : "nowrap"
+          }}>
+						<img
+							src={
+								images[0]
+							}
+							className="aspect-square object-cover "
+						></img>
+						<img
+							src={
+                images[1]
+							}
+							className="aspect-square object-cover "
+						></img>
+			
+						<img
+							src={
+                images[2]
+							}
+							className="aspect-square object-cover "
+						></img>
+						<img
+							src={
+                images[3]
+							}
+							className="aspect-square object-cover "
+						></img>
+					{/* </div> */}
+				</div>
+        </>
 			)}
 
 			{about && (
