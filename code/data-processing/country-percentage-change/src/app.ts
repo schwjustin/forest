@@ -46,9 +46,21 @@ export const processPercentChange = async (event: any , context: Context) => {
 
             const countryForestDatum = forestData.filter((item) => item.Entity.toLowerCase() == country.toLowerCase()).sort((a, b) => b.Year - a.Year)[0];
 
-            const percentLeft = Math.pow((1 - (countryForestDatum['Conversion as share of forest area']/100)), numOfYears);
+            const foilage = 1 - Math.pow((1 - (countryForestDatum['Conversion as share of forest area']/100)), numOfYears);
 
-            console.log(percentLeft);
+            const messageBody = {
+                jobId: jobId, 
+                country: country, 
+                numOfYears: numOfYears, 
+                foilage: foilage
+            }
+
+            const sqsCommand = new SendMessageCommand({
+                QueueUrl: QUEUE_URL,
+                MessageBody: JSON.stringify(messageBody)
+            });
+        
+            taskList.push(sqsClient.send(sqsCommand));
             
 
         } catch (e) {
@@ -58,6 +70,8 @@ export const processPercentChange = async (event: any , context: Context) => {
             failJob(jobId)
         }
     }
+
+    await Promise.all(taskList);
 
     return {
         statusCode: 200
