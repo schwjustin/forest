@@ -20,7 +20,9 @@ export class CountryPercentageChange extends Construct {
     constructor(scope: Construct, id: string, props: DalleGenImageProps) {
         super(scope, id);
 
-        this.dalleGenQueue = new sqs.Queue(this, 'country-percent-change');
+        this.dalleGenQueue = new sqs.Queue(this, 'country-percent-change', {
+            visibilityTimeout: Duration.seconds(100)
+        });
 
         const countryPercentageChangeLambda = new lambda.Function(this, 'country-percent-change-lambda',{
             runtime: lambda.Runtime.NODEJS_16_X,
