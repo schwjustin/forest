@@ -10,6 +10,7 @@ env:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: us-east-1
       ENVIRONMENT: prod
+      DALLE_KEY: ${{ secrets.DALLE_KEY }}
 jobs:
   cdk-deploy: 
     runs-on: ubuntu-latest
