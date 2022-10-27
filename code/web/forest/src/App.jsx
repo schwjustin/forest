@@ -26,32 +26,31 @@ function App() {
 	const [searchRef, search, setSearch] = useComponentVisible(false);
 	const [yearsRef, years, setYears] = useComponentVisible(false);
 
-	const call = () => {
-
-    
+	const call = (input) => {
+		console.log(input);
 		(async () => {
-
-      const res = countries.filter((country) => {
-        return country.toLowerCase() === query.toLowerCase();
-      });
+			const res = countries.filter((country) => {
+				return country.toLowerCase() === input.toLowerCase();
+			});
 
 			if (res.length > 0) {
-        const id = await CallAPI.call("POST", "https://3dycapu2p0.execute-api.us-east-1.amazonaws.com/prod/");
-        console.log(id);
-        
-        
+				const id = await CallAPI.call(
+					"POST",
+					"https://3dycapu2p0.execute-api.us-east-1.amazonaws.com/prod/"
+				);
+				console.log(JSON.stringify(id));
 
-		// 		const generations = await dalle.generate(
-		// 			"aerial view of " +
-		// 				query +
-		// 				" forest " +
-		// 				yearArr[choice] +
-		// 				" years into the future with " +
-		// 				"50" +
-		// 				"% less foliage due to deforestation"
-		// 		);
+				// 		const generations = await dalle.generate(
+				// 			"aerial view of " +
+				// 				query +
+				// 				" forest " +
+				// 				yearArr[choice] +
+				// 				" years into the future with " +
+				// 				"50" +
+				// 				"% less foliage due to deforestation"
+				// 		);
 
-		// 		console.log(generations);
+				// 		console.log(generations);
 			} else {
 				setQuery("");
 			}
@@ -123,7 +122,7 @@ function App() {
 										}}
 										onKeyUp={(e) => {
 											if (e.key === "Enter") {
-												call();
+												call(e.target.value);
 											} else {
 												e.target;
 											}
@@ -148,6 +147,7 @@ function App() {
 															key={i}
 															onMouseDown={() => {
 																setQuery(country);
+																call(country);
 															}}
 														>
 															{country}
