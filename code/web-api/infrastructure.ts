@@ -27,7 +27,11 @@ export class WebApi extends Construct {
 
         const countryImageApiIntegration = new apigateway.LambdaIntegration(countryImageService.countryImageApiLambda);
 
+        const getImageApiLambdaIntegation = new apigateway.LambdaIntegration(countryImageService.getImageApiLambda);
+
         apiGateway.root.addMethod('POST', countryImageApiIntegration);
+
+        apiGateway.root.addMethod('GET', getImageApiLambdaIntegation);
 
     }
 }

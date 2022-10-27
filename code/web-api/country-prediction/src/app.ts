@@ -79,7 +79,7 @@ export const getDalleImageHandler = async (event: APIGatewayEvent , context: Con
     }
 
     const result: APIGatewayProxyResult = {
-        statusCode: 200, 
+        statusCode: statusCode, 
         body: JSON.stringify(messageBody),
         headers: {
             'Access-Control-Allow-Origin': '*',
