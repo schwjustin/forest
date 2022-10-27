@@ -42,7 +42,10 @@ export const countryPredictionHandler = async (event: APIGatewayEvent , context:
 
     const result: APIGatewayProxyResult = {
         statusCode: 200, 
-        body: JSON.stringify(messageBody)
+        body: JSON.stringify(messageBody),
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
     };
 
     return result
