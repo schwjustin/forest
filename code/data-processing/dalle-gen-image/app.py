@@ -15,7 +15,7 @@ load_dotenv('./.env.local')
 dynamoDbClient = boto3.resource('dynamodb')
 
 ADDRESS = os.environ.get('API_ENDPOINT')
-S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
+DYNAMODB_TABLE_NAME = os.environ.get('DYNAMODB_TABLE_NAME')
 DALLE_BEARER = os.environ.get('DALLE_BEARER')
 # KEY NAME is the jobId 
 # S3_KEY_NAME = os.environ.get('S3_KEY_NAME')
@@ -34,7 +34,7 @@ def createPrompt(country, years, percent):
 
 async def mark_complete(jobId: str, generationLink: str, dynamoDbClient = dynamoDbClient):
     # Specify the table
-    devices_table = dynamoDbClient.Table('Devices')
+    devices_table = dynamoDbClient.Table(DYNAMODB_TABLE_NAME)
     response = devices_table.put_item(
         Item={
             'JobId': jobId,
