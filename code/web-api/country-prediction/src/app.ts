@@ -3,6 +3,7 @@ import * as crypto from 'crypto';
 import * as dotenv from "dotenv";
 import * as path from 'path';
 import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs";
+import { AttributeValue, DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 
 if (process.env.ENVIRONMENT == null) {
     dotenv.config({
@@ -11,8 +12,10 @@ if (process.env.ENVIRONMENT == null) {
 }
 
 const QUEUE_URL = process.env.DATA_PROCESSING_QUEUE_URL ?? '';
+const DYNAMODB_TABLE_NAME = process.env.DYNAMODB_TABLE_NAME ?? '';
 
 const sqsClient = new SQSClient({});
+const dynamoDbClient = new DynamoDBClient({});
 
 interface CountryPredictionApiBody {
     country: string, 
@@ -33,7 +36,9 @@ export const countryPredictionHandler = async (event: APIGatewayEvent , context:
         MessageBody: JSON.stringify(messageBody)
     });
 
-    await sqsClient.send(sqsCommand);
+    const tasks = [storeJobId(token), sqsClient.send(sqsCommand)]
+
+    await Promise.all(tasks);
 
     const result: APIGatewayProxyResult = {
         statusCode: 200, 
@@ -41,4 +46,26 @@ export const countryPredictionHandler = async (event: APIGatewayEvent , context:
     };
 
     return result
+}
+
+
+
+async function storeJobId(jobId: string) {
+    const items: Record<string, AttributeValue> = {
+        'JobId': {
+            "S": jobId
+        },
+        'isComplete': {
+            "BOOL": false
+        }
+    };
+
+    const putItemInput = {
+        TableName: DYNAMODB_TABLE_NAME,
+        Item: items
+    };
+
+    const putItemCommand: PutItemCommand = new PutItemCommand(putItemInput);
+
+    await dynamoDbClient.send(putItemCommand);
 }

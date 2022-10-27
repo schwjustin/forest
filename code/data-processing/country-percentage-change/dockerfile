@@ -1,0 +1,15 @@
+FROM public.ecr.aws/lambda/nodejs:16
+
+# Copy Content to /asset folder
+COPY . /asset
+
+WORKDIR /asset
+
+# Install Yarn
+RUN npm install -g yarn
+
+# Install NPM dependencies for function
+RUN yarn install
+
+# Build 
+RUN npx esbuild src/app.ts --bundle --minify --sourcemap --platform=node --target=es2020 --outfile=index.js
