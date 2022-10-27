@@ -73,7 +73,7 @@ function App() {
 								<>
 									<div className="ml-4 mr-4 h-[0.5px] w-auto bg-white opacity-75"></div>
 
-                  <div className="overflow-y-scroll pt-2 pb-2" style={{maxHeight: "168px"}}>
+                  <div className="overflow-y-scroll pt-2 pb-2" style={{maxHeight: "176px"}}>
 									{results.map((country, i) => (
 										<div
 											className="cursor-pointer h-10 leading-10 ml-2 mr-2 pl-2 pr-2 hover:bg-black hover:bg-opacity-10 rounded-xl text-lg"
