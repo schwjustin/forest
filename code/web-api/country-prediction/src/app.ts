@@ -61,12 +61,16 @@ export const getDalleImageHandler = async (event: APIGatewayEvent , context: Con
     }
 
     var messageBody = {};
-    var statusCode = 200;
+    var statusCode = 502;
+
+    console.log(response ?? "{}")
 
     if (response?.isComplete?.BOOL === true) {
+        const link = response?.link?.S ?? 'Should be a string'
+
         statusCode = 200;
         messageBody = {
-            link: response?.link?.S
+            link: response?.link?.L
         }
     } else {
         statusCode = 202;
