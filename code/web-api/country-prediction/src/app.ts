@@ -3,7 +3,7 @@ import * as crypto from 'crypto';
 import * as dotenv from "dotenv";
 import * as path from 'path';
 import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs";
-import { AttributeValue, DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import { AttributeValue, DynamoDBClient, GetItemCommand, GetItemCommandInput, PutItemCommand } from "@aws-sdk/client-dynamodb";
 
 if (process.env.ENVIRONMENT == null) {
     dotenv.config({
@@ -51,6 +51,44 @@ export const countryPredictionHandler = async (event: APIGatewayEvent , context:
     return result
 }
 
+export const getDalleImageHandler = async (event: APIGatewayEvent , context: Context): Promise<APIGatewayProxyResult> => {
+    const jobId = event?.queryStringParameters?.jobId ?? ''
+
+    const response = await getJobStatus(jobId);
+
+    console.log(response);
+
+    const messageBody = {};
+
+    const result: APIGatewayProxyResult = {
+        statusCode: 200, 
+        body: JSON.stringify(messageBody),
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        }
+    };
+
+    return result
+}
+
+async function getJobStatus(jobId: string): Promise<Record<string, AttributeValue> | null> {
+    const getLatestarticleInputCommand: GetItemCommandInput = {
+        TableName: DYNAMODB_TABLE_NAME,
+        Key: {
+            JobId: {
+                "S": jobId
+            }
+        }
+    }
+
+    const getItemCommand = new GetItemCommand(getLatestarticleInputCommand);
+
+    const result = await dynamoDbClient.send(getItemCommand);
+
+    const responseItems = result?.Item ?? null;
+
+    return responseItems;
+}
 
 
 async function storeJobId(jobId: string) {

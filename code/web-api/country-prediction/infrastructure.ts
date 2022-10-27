@@ -13,6 +13,7 @@ interface CountryImageProps {
 export class CountryImage extends Construct {
     countryImageDataProcessingQueue: sqs.Queue;
     countryImageApiLambda: lambda.Function;
+    getImageApiLambda: lambda.Function;
     jobTable: dynamodb.Table;
 
     constructor(scope: Construct, id: string, props: CountryImageProps) {
@@ -41,9 +42,24 @@ export class CountryImage extends Construct {
             timeout: Duration.seconds(30)
         });
 
+        this.getImageApiLambda = new lambda.Function(this, 'getImageApiLambda',{
+            runtime: lambda.Runtime.NODEJS_16_X,
+            code: lambda.Code.fromDockerBuild(path.resolve(__dirname, './'), {
+                file: "dockerfile"
+            }),
+            handler: 'index.getDalleImageHandler', 
+            environment: {
+                "DATA_PROCESSING_QUEUE_URL": this.countryImageDataProcessingQueue.queueUrl, 
+                "DYNAMODB_TABLE_NAME": this.jobTable.tableName
+            }, 
+            timeout: Duration.seconds(30)
+        });
+
         this.jobTable.grantReadWriteData(this.countryImageApiLambda);
 
-        this.countryImageDataProcessingQueue.grantSendMessages(this.countryImageApiLambda);
+        this.jobTable.grantReadWriteData(this.getImageApiLambda);
 
+        this.countryImageDataProcessingQueue.grantSendMessages(this.countryImageApiLambda);
+        
     }
 }
