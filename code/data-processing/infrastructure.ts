@@ -19,7 +19,8 @@ export class DataProcessing extends Construct {
         });
 
         const dalleGenImage = new DalleGenImage(this, 'dalle-gen-image', {
-            dalleQueue: countryPercentageChange.dalleGenQueue
+            dalleQueue: countryPercentageChange.dalleGenQueue, 
+            jobTable: props.countryImage.jobTable
         });
 
     }
