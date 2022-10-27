@@ -34,6 +34,8 @@ export class CountryPercentageChange extends Construct {
             timeout: Duration.seconds(30)
         });
 
+        props.jobTable.grantReadWriteData(countryPercentageChangeLambda);
+
         this.dalleGenQueue.grantSendMessages(countryPercentageChangeLambda);
     }
 }

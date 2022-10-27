@@ -41,7 +41,9 @@ export class CountryImage extends Construct {
             timeout: Duration.seconds(30)
         });
 
-        this.countryImageDataProcessingQueue.grantSendMessages(this.countryImageApiLambda)
+        this.jobTable.grantReadWriteData(this.countryImageApiLambda);
+
+        this.countryImageDataProcessingQueue.grantSendMessages(this.countryImageApiLambda);
 
     }
 }
