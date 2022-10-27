@@ -12,7 +12,7 @@ import json
 
 load_dotenv('./.env.local')
 
-dynamoDbClient = boto3.client('dynamodb')
+dynamoDbClient = boto3.resource('dynamodb')
 
 ADDRESS = os.environ.get('API_ENDPOINT')
 S3_BUCKET_NAME = os.environ.get('S3_BUCKET_NAME')
