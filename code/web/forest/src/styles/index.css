@@ -71,7 +71,7 @@ h2 {
 	font-size: 2.5rem;
 	font-weight: 600;
 	line-height: 120%;
-	margin-bottom: 1.25rem;
+	margin-bottom: 1.5rem;
 }
 
 a, .hover {
@@ -88,4 +88,57 @@ a:hover, .hover:hover {
 
 .about a, .about p {
 	line-height: 160%;;
+}
+
+.about h1 {
+	font-size: 3rem;
+	font-weight: 600;
+	line-height: 120%;
+	margin-bottom: 4rem;
+}
+
+@-webkit-keyframes spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+
+
+.loading-icon {
+	border-radius: 50%;
+	border-style: solid;
+	border-color: rgba(0,0,0,0.6);
+	border-top-color: #ffffff;
+	display: inline-block;
+
+	-webkit-animation-name: spin;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-iteration-count: infinite;
+
+	animation-name: spin;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+}
+
+.full-circle {
+	-webkit-animation-timing-function: cubic-bezier(0.6, 0, 0.4, 1);
+	animation-timing-function: cubic-bezier(0.6, 0, 0.4, 1);
 }
