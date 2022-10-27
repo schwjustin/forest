@@ -49,7 +49,7 @@ async def asyncHandler(event: any, context: any):
     for sqsRecord in event['Records']:
         messageBody = json.loads(sqsRecord['body'])
         prompt = createPrompt(messageBody['country'], str(messageBody['numOfYears']), str(messageBody['foilage']))
-        generations = getDalleImage(prompt=prompt)
+        generations = await getDalleImage(prompt=prompt)
         await mark_complete(messageBody['jobId'], generations)
 
     return {
