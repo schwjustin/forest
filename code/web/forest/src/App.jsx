@@ -8,6 +8,7 @@ import bg from "./assets/images/test.jpg";
 
 function App() {
 	const [query, setQuery] = useState("");
+	const [bgInfo, setBgInfo] = useState("Amazon Rainforest, Brazil\n2030");
 	const [results, setResults] = useState([]);
 	const [searchRef, search, setSearch] = useComponentVisible(false);
 	const [yearsRef, years, setYears] = useComponentVisible(false);
@@ -40,7 +41,6 @@ function App() {
 					className="absolute h-center w-1/2 backdrop-blur-2xl rounded-3xl flex flex-wrap"
 					style={{
 						border: "rgba(255,255,255,0.75) solid 0.5px",
-            
 					}}
 				>
 					<div className="flex w-full">
@@ -53,8 +53,9 @@ function App() {
 				)} */}
 
 						<input
+
 							className="text-lg w-full pb-[2px] pl-2 placeholder:white h-12"
-							type="text"
+							type="search"
 							value={query}
 							onChange={(e) => {
 								setSearch(true);
@@ -73,19 +74,22 @@ function App() {
 								<>
 									<div className="ml-4 mr-4 h-[0.5px] w-auto bg-white opacity-75"></div>
 
-                  <div className="overflow-y-scroll pt-2 pb-2" style={{maxHeight: "176px"}}>
-									{results.map((country, i) => (
-										<div
-											className="cursor-pointer h-10 leading-10 ml-2 mr-2 pl-2 pr-2 hover:bg-black hover:bg-opacity-10 rounded-xl text-lg"
-											key={i}
-											onMouseDown={() => {
-												setQuery(country);
-											}}
-										>
-											{country}
-										</div>
-									))}
-                  </div>
+									<div
+										className="overflow-y-scroll pt-2 pb-2"
+										style={{ maxHeight: "176px" }}
+									>
+										{results.map((country, i) => (
+											<div
+												className="cursor-pointer h-10 leading-10 ml-2 mr-2 pl-2 pr-2 hover:bg-black hover:bg-opacity-10 rounded-xl text-lg"
+												key={i}
+												onMouseDown={() => {
+													setQuery(country);
+												}}
+											>
+												{country}
+											</div>
+										))}
+									</div>
 								</>
 							)}
 						</div>
@@ -105,6 +109,16 @@ function App() {
 					</div>
 				</div>
 			</div>
+
+			<div className="fixed top-0 w-full h-1/3 bg-gradient-to-b to-transparent from-black-40"></div>
+
+			<div className="fixed bottom-0 w-full h-1/3 bg-gradient-to-t to-transparent from-black-40"></div>
+
+			<h1 className="fixed top-7 left-7 font-semibold text-2xl">Terrestrial</h1>
+
+			<h3 className="fixed bottom-7 left-7 font-semibold text-lg whitespace-pre-wrap leading-snug">{bgInfo}</h3>
+
+      <p className="leading-8"></p>
 		</div>
 	);
 }
