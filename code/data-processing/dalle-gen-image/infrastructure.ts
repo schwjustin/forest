@@ -41,7 +41,9 @@ export class DalleGenImage extends Construct {
             ]
         });
 
-        props.dalleQueue.grantConsumeMessages(dalleGenImageLambda)
+        props.jobTable.grantReadWriteData(dalleGenImageLambda);
+
+        props.dalleQueue.grantConsumeMessages(dalleGenImageLambda);
 
     }
 }

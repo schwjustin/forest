@@ -11,7 +11,7 @@ export class CodeStack extends Stack {
 
     const dataProcessing = new DataProcessing(this, 'data-processing', {
       countryImage: webApi.countryImage
-    })
+    });
 
   }
 }
