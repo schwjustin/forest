@@ -1,0 +1,49 @@
+@font-face {
+	font-family: "Mori";
+	src: url("../assets/fonts/ppmori-semibold-webfont.woff2") format("woff2"),
+		url("../assets/fonts/ppmori-semibold-webfont.woff") format("woff");
+	font-weight: 600;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Mori";
+	src: url("../assets/fonts/ppmori-extralightitalic-webfont.woff2")
+			format("woff2"),
+		url("../assets/fonts/ppmori-extralightitalic-webfont.woff") format("woff");
+	font-weight: 100;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Mori";
+	src: url("../assets/fonts/ppmori-regularitalic-webfont.woff2") format("woff2"),
+		url("../assets/fonts/ppmori-regularitalic-webfont.woff") format("woff");
+	font-weight: 400;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Mori";
+	src: url("../assets/fonts/ppmori-semibolditalic-webfont.woff2")
+			format("woff2"),
+		url("../assets/fonts/ppmori-semibolditalic-webfont.woff") format("woff");
+	font-weight: 600;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Mori";
+	src: url("../assets/fonts/ppmori-extralight-webfont.woff2") format("woff2"),
+		url("../assets/fonts/ppmori-extralight-webfont.woff") format("woff");
+	font-weight: 100;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Mori";
+	src: url("../assets/fonts/ppmori-regular-webfont.woff2") format("woff2"),
+		url("../assets/fonts/ppmori-regular-webfont.woff") format("woff");
+	font-weight: 400;
+	font-style: normal;
+}
