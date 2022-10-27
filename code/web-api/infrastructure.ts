@@ -17,7 +17,8 @@ export class WebApi extends Construct {
         const apiGateway = new apigateway.RestApi(this, 'webApi', {
             defaultCorsPreflightOptions: {
                 allowOrigins: apigateway.Cors.ALL_ORIGINS, 
-                allowMethods: apigateway.Cors.ALL_METHODS
+                allowMethods: apigateway.Cors.ALL_METHODS,
+                allowHeaders: ['*']
             }
         });
 
