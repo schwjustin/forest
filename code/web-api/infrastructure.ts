@@ -9,15 +9,20 @@ interface WebApiProps {
 };
 
 export class WebApi extends Construct {
-    countryDataProcessingQueue: sqs.Queue;
+    countryImage: CountryImage;
 
     constructor(scope: Construct, id: string, props: WebApiProps) {
         super(scope, id);
 
-        const apiGateway = new apigateway.RestApi(this, 'webApi');
+        const apiGateway = new apigateway.RestApi(this, 'webApi', {
+            defaultCorsPreflightOptions: {
+                allowOrigins: apigateway.Cors.ALL_ORIGINS, 
+                allowMethods: apigateway.Cors.ALL_METHODS
+            }
+        });
 
         const countryImageService = new CountryImage(this, 'countryImageService', {});
-        this.countryDataProcessingQueue = countryImageService.countryImageDataProcessingQueue;
+        this.countryImage = countryImageService;
 
         const countryImageApiIntegration = new apigateway.LambdaIntegration(countryImageService.countryImageApiLambda);
 
